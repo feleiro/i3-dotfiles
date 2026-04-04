@@ -1,7 +1,6 @@
-read "Начать установку? (yes/no)" decision
 
 
-
+read -p "Начать установку? (yes/no)" decision
 
 if [ "$decision" = "yes" ]; then
 	echo "Понадобятся права администратора,йоу"
