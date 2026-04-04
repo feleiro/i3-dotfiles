@@ -1,0 +1,21 @@
+
+#opacity setting
+[window]
+opacity = 0.8
+blur = true
+dynamic_title = true
+dynamic_padding = true
+
+
+[terminal]
+shell = {program =  "/bin/fish", args = ["-c", "fastfetch && exec fish"] }
+
+[font]
+size = 7.5
+
+
+[general]
+import = [
+	"~/.cache/wal/colors-alacritty.toml"
+]
+
