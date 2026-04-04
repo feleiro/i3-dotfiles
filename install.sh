@@ -2,6 +2,11 @@
 
 read -p "Начать установку? (yes/no)" decision
 
+read -p "Использовать клавишу win для запуска rofi? (По умолчанию win+d): (yes/no) " usewin
+
+
+
+
 if [ "$decision" = "yes" ]; then
 	echo "Понадобятся права администратора,йоу"
 	sudo -v
@@ -47,6 +52,10 @@ if [ "$decision" = "yes" ]; then
 	echo "Копирую файлы конфигов для pywal..."
 	cp -R ./wal ~/.config/wal && echo "Успешно."
 
+	if ["$usewin" = "yes"]; then
+		yay -S --needed --noconfirm ksuperkey
+		echo "exec --no-startup-id ksuperkey -e 'Super_L=Mod1|F1'" >> ~/.config/i3/config.d/autostart.conf"
+		sed -i 's/bindcode $mod+40/bindsym Mod1+F1/g' ~/.config/i3/config.d/keybinds.conf
 
 
 else
