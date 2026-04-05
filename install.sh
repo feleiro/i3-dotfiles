@@ -36,7 +36,7 @@ if [ "$decision" = "yes" ]; then
         echo "Настраиваю запуск rofi по одиночному нажатию Win..."
         # Добавляем в автозагрузку
         echo "exec --no-startup-id xcape -e 'Super_L=Mod1|F1'" >> ~/.config/i3/config.d/autostart.conf
-        # Меняем бинд в конфиге (Mod1+F1 — это Alt+F1, который эмулирует ksuperkey)
+        # Меняем бинд в конфиге (Alt_L+F1 — это Alt+F1, который эмулирует ksuperkey)
         sed -i 's/bindcode $mod+40/bindsym Mod1+F1/g' ~/.config/i3/config.d/keybinds.conf
     fi
 
