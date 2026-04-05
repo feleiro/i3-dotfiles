@@ -56,7 +56,7 @@ if [ "$decision" = "yes" ]; then
 		yay -S --needed --noconfirm ksuperkey
 		echo "exec --no-startup-id ksuperkey -e 'Super_L=Mod1|F1'" >> ~/.config/i3/config.d/autostart.conf"
 		sed -i 's/bindcode $mod+40/bindsym Mod1+F1/g' ~/.config/i3/config.d/keybinds.conf
-
+	fi
 
 else
 	echo "ну и иди ты"
