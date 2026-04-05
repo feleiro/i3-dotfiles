@@ -1,64 +1,51 @@
+#!/bin/bash
 
-
-read -p "Начать установку? (yes/no)" decision
-
-read -p "Использовать клавишу win для запуска rofi? (По умолчанию win+d): (yes/no) " usewin
-
-
-
+read -p "Начать установку? (yes/no): " decision
+read -p "Использовать клавишу win для запуска rofi? (По умолчанию win+d): (yes/no): " usewin
 
 if [ "$decision" = "yes" ]; then
-	echo "Понадобятся права администратора,йоу"
-	sudo -v
-	echo  "Устанавливаем все необходимые пакеты..."
-	yay -S --needed --noconfirm i3-wm alacritty rofi i3status polybar picom pywal feh scrot xclip dolphin && echo "Успешно."
-	echo "Удаляю старые файлы конфигов,если таковые имеются..."
-	if [ -d "$HOME/.config/i3" ]; then
-    		rm -rf "$HOME/.config/i3"
-    		echo "Папка i3 удалена."
-	fi
-	if [ -d "$HOME/.config/i3" ]; then
-    		rm -rf "$HOME/.config/rofi"
-    		echo "Папка rofi  удалена."
-	fi
-	if [ -d "$HOME/.config/i3" ]; then
-    		rm -rf "$HOME/.config/alacritty"
-    		echo "Папка alacritty удалена."
-	fi
-	if [ -d "$HOME/.config/i3" ]; then
-    		rm -rf "$HOME/.config/polybar"
-    		echo "Папка polybar удалена."
-	fi
-		if [ -d "$HOME/.config/wal" ]; then
-    		rm -rf "$HOME/.config/wal"
-    		echo "Папка pywal удалена."
-	fi
-	
-	
-	echo "Копирую файлы конфигов в ~/.config "
-	
-	echo "Копирую файлы конфигов для i3..."
-	cp -R ./i3 ~/.config/i3 && echo "Успешно."
+    echo "Понадобятся права администратора, йоу"
+    sudo -v
 
-	echo "Копирую файлы конфигов для alacritty..."
-	cp -R ./alacritty ~/.config/alacritty && echo "Успешно."
+    echo "Устанавливаем все необходимые пакеты..."
+    # Добавил ksuperkey в общий список, если он понадобится
+    PACKAGES="i3-wm alacritty rofi i3status polybar picom pywal feh scrot xclip dolphin"
+    [ "$usewin" = "yes" ] && PACKAGES="$PACKAGES ksuperkey"
+    
+    yay -S --needed --noconfirm $PACKAGES && echo "Пакеты установлены успешно."
 
-	echo "Копирую файлы конфигов для rofi..."
-	cp -R ./rofi ~/.config/rofi && echo "Успешно."
+    echo "Удаляю старые файлы конфигов, если таковые имеются..."
+    # Исправлена логика: раньше везде проверялась папка ~/.config/i3
+    for folder in i3 rofi alacritty polybar wal; do
+        if [ -d "$HOME/.config/$folder" ]; then
+            rm -rf "$HOME/.config/$folder"
+            echo "Папка $folder удалена."
+        fi
+    done
+    
+    echo "Копирую файлы конфигов в ~/.config..."
+    
+    # Массив для удобного копирования
+    configs=("i3" "alacritty" "rofi" "polybar" "wal")
+    for cfg in "${configs[@]}"; do
+        if [ -d "./$cfg" ]; then
+            cp -R "./$cfg" ~/.config/ && echo "Конфиг $cfg скопирован успешно."
+        else
+            echo "Ошибка: Исходная папка ./$cfg не найдена!"
+        fi
+    done
 
-	echo "Копирую файлы конфигов для polybar ..."
-	cp -R ./polybar  ~/.config/polybar && echo "Успешно."
+    # Исправлен синтаксис: в [ ] обязательны пробелы вокруг условий
+    if [ "$usewin" = "yes" ]; then
+        echo "Настраиваю запуск rofi по одиночному нажатию Win..."
+        # Добавляем в автозагрузку
+        echo "exec --no-startup-id ksuperkey -e 'Super_L=Mod1|F1'" >> ~/.config/i3/config.d/autostart.conf
+        # Меняем бинд в конфиге (Mod1+F1 — это Alt+F1, который эмулирует ksuperkey)
+        sed -i 's/bindcode $mod+40/bindsym Mod1+F1/g' ~/.config/i3/config.d/keybinds.conf
+    fi
 
-	echo "Копирую файлы конфигов для pywal..."
-	cp -R ./wal ~/.config/wal && echo "Успешно."
-
-	if ["$usewin" = "yes"]; then
-		yay -S --needed --noconfirm ksuperkey
-		echo "exec --no-startup-id ksuperkey -e 'Super_L=Mod1|F1'" >> ~/.config/i3/config.d/autostart.conf
-		sed -i 's/bindcode $mod+40/bindsym Mod1+F1/g' ~/.config/i3/config.d/keybinds.conf
-	fi
-
+    echo "Установка завершена! Перезагрузите i3 (Mod+Shift+R)."
 else
-	echo "ну и иди ты"
-
+    echo "Ну и иди ты"
 fi
+i
