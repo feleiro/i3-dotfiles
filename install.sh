@@ -8,14 +8,12 @@ if [ "$decision" = "yes" ]; then
     sudo -v
 
     echo "Устанавливаем все необходимые пакеты..."
-    # Добавил ksuperkey в общий список, если он понадобится
     PACKAGES="i3-wm alacritty rofi i3status polybar picom pywal feh scrot xclip dolphin"
-    [ "$usewin" = "yes" ] && PACKAGES="$PACKAGES ksuperkey"
+    [ "$usewin" = "yes" ] && PACKAGES="$PACKAGES xcape"
     
     yay -S --needed --noconfirm $PACKAGES && echo "Пакеты установлены успешно."
 
     echo "Удаляю старые файлы конфигов, если таковые имеются..."
-    # Исправлена логика: раньше везде проверялась папка ~/.config/i3
     for folder in i3 rofi alacritty polybar wal; do
         if [ -d "$HOME/.config/$folder" ]; then
             rm -rf "$HOME/.config/$folder"
@@ -25,7 +23,6 @@ if [ "$decision" = "yes" ]; then
     
     echo "Копирую файлы конфигов в ~/.config..."
     
-    # Массив для удобного копирования
     configs=("i3" "alacritty" "rofi" "polybar" "wal")
     for cfg in "${configs[@]}"; do
         if [ -d "./$cfg" ]; then
@@ -35,11 +32,10 @@ if [ "$decision" = "yes" ]; then
         fi
     done
 
-    # Исправлен синтаксис: в [ ] обязательны пробелы вокруг условий
     if [ "$usewin" = "yes" ]; then
         echo "Настраиваю запуск rofi по одиночному нажатию Win..."
         # Добавляем в автозагрузку
-        echo "exec --no-startup-id ksuperkey -e 'Super_L=Mod1|F1'" >> ~/.config/i3/config.d/autostart.conf
+        echo "exec --no-startup-id xcape -e 'Super_L=Mod1|F1'" >> ~/.config/i3/config.d/autostart.conf
         # Меняем бинд в конфиге (Mod1+F1 — это Alt+F1, который эмулирует ksuperkey)
         sed -i 's/bindcode $mod+40/bindsym Mod1+F1/g' ~/.config/i3/config.d/keybinds.conf
     fi
@@ -48,4 +44,4 @@ if [ "$decision" = "yes" ]; then
 else
     echo "Ну и иди ты"
 fi
-i
+
