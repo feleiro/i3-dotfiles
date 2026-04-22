@@ -99,7 +99,7 @@ if [[ "$decision" =~ "y" ]]; then
     sudo -v
 
 #setting up congig/ files
-	if [ -n "$LCONFIG_DIR" ]; then
+		if [ -d "$LCONFIG_DIR" ] && [ -n "$(ls -A "$LCONFIG_DIR")" ]; then
 		read -p "папка config не была пуста. Удалить содержимое? (y/n)" clear_config
 		if [[ "$clear_config" =~ "y" ]]; then
 			rm -rf $LCONFIG_DIR
@@ -152,8 +152,8 @@ if [[ "$usewin" =~ "y" ]]; then
         
 	add_or_replace "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "$I3_CFG/autostart.conf"
         
-	sed -i 's/bindcode \$mod+40/bindsym Mod1+F1/g' "$I3_CFG/autostart.conf"
-    fi
+	add_or_replace "bindcode \$mod+40" "bindsym Mod1+F1" "$I3_CFG/autostart.conf"
+fi
 
 #finish
 
