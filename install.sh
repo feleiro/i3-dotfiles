@@ -150,7 +150,7 @@ echo "Устанавливаем все необходимые пакеты..."
 if [[ "$usewin" =~ "y" ]]; then
         echo "Настраиваю запуск rofi по одиночному нажатию Win..."
         
-	echo "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" >> "$I3_CFG/autostart.conf"
+	add_or_replace "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "$I3_CFG/autostart.conf"
         
 	sed -i 's/bindcode \$mod+40/bindsym Mod1+F1/g' "$I3_CFG/autostart.conf"
     fi
