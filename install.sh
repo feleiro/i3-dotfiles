@@ -9,7 +9,7 @@ I3_CFG="$LCONFIG_DIR/i3/config.d"
 PACKAGES="i3 picom rofi pywal scrot xclip yad alacritty polybar feh dolphin"
 
 echo "Сейчас тебе и3 ставить будем"
-echo "Твои старые файлы конфигов удалены не будут,они будут в том же месте,но с с прeпиской .backup"
+echo "Твои старые файлы конфигов удалены не будут,они будут в том же месте,но с прeпиской .backup"
 read -p "Начать установку? (y/n): " decision
 read -p "Использовать клавишу win для запуска rofi? (По умолчанию win+d): (y/n): " usewin
 
