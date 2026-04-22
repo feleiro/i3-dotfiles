@@ -30,7 +30,7 @@ symlink() {
 	fi
 
 	ln -sf "$src" "$dst"
-	echo "создана ссылка: $dst -> $src"
+	echo "создана ссылка: $src -> $dst"
 }
 
 get_distro() {
