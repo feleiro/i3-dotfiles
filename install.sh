@@ -157,7 +157,7 @@ if [[ "$usewin" =~ "y" ]]; then
 
 #finish
 
-    echo "Установка завершена! Перезайди в i3 (Mod+Shift+M)."
+    echo "Установка завершена! Перезайди в i3 (Mod+M)."
 else
     echo "Ну и иди ты"
 fi
