@@ -19,8 +19,8 @@ symlink() {
 	local src="$1"
 	local dst="$2"
 	
-	if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$dst" ]; then
-		echo "уже есть ссылка: $dst -> $src"
+	if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+		echo "уже есть ссылка: $src -> $dst"
 		return
 	fi
 
