@@ -43,20 +43,25 @@ if [ "$distro" = "" ]; then
 	echo "$distro"
 }
 
+
 add_or_replace() {
-	local srch="$1"
-	local rplc="$2"
-	local dst="$3"
-	
-	if ! grep -q "$srch"  "$dst" ; then 
-	echo "$rplc" >> "$dst" 
-	return
-	else
-		sed -i "s|$srch|$rplc|" "$dst"
-	fi
+    local srch="$1"
+    local rplc="$2"
+    local dst="$3"
 
-
+    if grep -Fxq "$rplc" "$dst"; then
+        echo "Строка уже существует в $dst"
+    else
+        if grep -q "$srch" "$dst"; then
+            echo "Обновляю существующую настройку в $dst"
+            sed -i "s|.*$srch.*|$rplc|" "$dst"
+        else
+            echo "Добавляю новую строку в $dst"
+            echo "$rplc" >> "$dst"
+        fi
+    fi
 }
+
 
 install_packages() {
 	local pkgs="$1"
@@ -119,7 +124,7 @@ if [[ "$decision" =~ "y" ]]; then
 
 	add_or_replace "exec --no-startup-id pipewire" "exec --no-startup-id pipewire" "$I3_CFG/autostart.conf"
 	add_or_replace "exec --no-startup-id pipewire-pulse" "exec --no-startup-id pipewire-pulse" "$I3_CFG/autostart.conf"
-	add_or_replace "exec --no-startup-id wireplumber" "exec -no-startup-id wireplumber" "I3_CFG/autostart.sh"
+	add_or_replace "exec --no-startup-id wireplumber" "exec -no-startup-id wireplumber" "$I3_CFG/autostart.conf"
 	fi
 
     fi
