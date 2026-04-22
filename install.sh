@@ -3,7 +3,7 @@ LCONFIG_DIR="$(pwd)/config"
 DEFAULT_DIR="$(pwd)/default"
 CONFIG_FILES=("i3" "alacritty" "polybar" "rofi" "wal" "picom")
 CONFIG_DIR="$HOME/.config"
-BACKUP_SFX=".backup-$(date +%Y%m%d_%H$M$S)"
+BACKUP_SFX=".backup-$(date +%Y%m%d_%H%M%S)"
 I3_CFG="$LCONFIG_DIR/i3/config.d"
 
 PACKAGES="i3 picom rofi pywal scrot xclip yad alacritty polybar feh dolphin"
@@ -29,6 +29,7 @@ symlink() {
 		mv "$dst" "$dst$BACKUP_SFX"
 	fi
 
+	mkdir -p "$(dirname "$dst")"
 	ln -sf "$src" "$dst"
 	echo "создана ссылка: $src -> $dst"
 }
@@ -49,10 +50,13 @@ add_or_replace() {
     local rplc="$2"
     local dst="$3"
 
+	mkdir -p "$(dirname "$dst")"
+	touch "$dst"
+
     if grep -Fxq "$rplc" "$dst"; then
         echo "Строка уже существует в $dst"
     else
-        if grep -q "$srch" "$dst"; then
+        if grep -Fq "$srch" "$dst"; then
             echo "Обновляю существующую настройку в $dst"
             sed -i "s|.*$srch.*|$rplc|" "$dst"
         else
@@ -99,10 +103,10 @@ if [[ "$decision" =~ "y" ]]; then
     sudo -v
 
 #setting up congig/ files
-		if [ -d "$LCONFIG_DIR" ] && [ -n "$(ls -A "$LCONFIG_DIR")" ]; then
+	if [ -d "$LCONFIG_DIR" ] && [ -n "$(ls -A "$LCONFIG_DIR" 2>/dev/null)" ]; then
 		read -p "папка config не была пуста. Удалить содержимое? (y/n)" clear_config
 		if [[ "$clear_config" =~ "y" ]]; then
-			rm -rf $LCONFIG_DIR
+			rm -rf "${LCONFIG_DIR:?}"/*
 			mkdir -p $LCONFIG_DIR
 		else
 			echo "Так дела не идут. Убери что осталось в папке $LCONFIG_DIR и тогда можем поговорить"
@@ -111,7 +115,7 @@ if [[ "$decision" =~ "y" ]]; then
 
 	fi
 
-	cp -R $DEFAULT_DIR/* $LCONFIG_DIR
+	cp -RT "$DEFAULT_DIR" "$LCONFIG_DIR"
 
 #checking if distro is void and prompting to set up sound
 
@@ -124,7 +128,7 @@ if [[ "$decision" =~ "y" ]]; then
 
 	add_or_replace "exec --no-startup-id pipewire" "exec --no-startup-id pipewire" "$I3_CFG/autostart.conf"
 	add_or_replace "exec --no-startup-id pipewire-pulse" "exec --no-startup-id pipewire-pulse" "$I3_CFG/autostart.conf"
-	add_or_replace "exec --no-startup-id wireplumber" "exec -no-startup-id wireplumber" "$I3_CFG/autostart.conf"
+	add_or_replace "exec --no-startup-id wireplumber" "exec --no-startup-id wireplumber" "$I3_CFG/autostart.conf"
 	fi
 
     fi
@@ -150,9 +154,9 @@ echo "Устанавливаем все необходимые пакеты..."
 if [[ "$usewin" =~ "y" ]]; then
         echo "Настраиваю запуск rofi по одиночному нажатию Win..."
         
-	add_or_replace "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "$I3_CFG/autostart.conf"
+	add_or_replace "xcape" "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "$I3_CFG/autostart.conf"
         
-	add_or_replace "bindcode \$mod+40" "bindsym Mod1+F1" "$I3_CFG/autostart.conf"
+	add_or_replace 'bindcode \$mod+40' 'bindsym Mod1+F1 exec "rofi -modi drun,run -show drun"' "$I3_CFG/autostart.conf"
 fi
 
 #finish
