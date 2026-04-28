@@ -6,7 +6,7 @@
   Here is a list of packages that will be installed alongside dotfiles.
   | tool  | package |
   | :---: |  :---:  |
-  |window manager|| i3(really?) |
+  | window manager | i3(really?) |
   | terminal | alacritty |
   | bar | polybar |
   | runner | rofi |
