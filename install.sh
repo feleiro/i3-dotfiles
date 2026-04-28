@@ -156,7 +156,7 @@ if [[ "$usewin" =~ "y" ]]; then
         
 	add_or_replace "xcape" "exec --no-startup-id xcape -e 'Super_L=Alt_L|F1'" "$I3_CFG/autostart.conf"
         
-	add_or_replace 'bindcode \$mod+40' 'bindsym Mod1+F1 exec "rofi -modi drun,run -show drun"' "$I3_CFG/autostart.conf"
+	add_or_replace 'bindcode \$mod+40' 'bindsym Mod1+F1 exec "rofi -modi drun,run -show drun"' "$I3_CFG/keybinds.conf"
 fi
 
 #finish
