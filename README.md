@@ -12,6 +12,7 @@
 
   Its just a little bunch of dotfiles me and my brother use on a daily basis. It gets updated sometimes.
   I decied to play around with symlinks so the config files are stored in the repos folder and are symlinked to the ~/.config folder.
+  It also changes colors based on wallapapers you provide.
 
 ## __Packages__
   
