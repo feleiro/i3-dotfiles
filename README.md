@@ -1,7 +1,7 @@
 # My i3 dotfiles
 
 ## links/содержание
-  # - [English](#English) 
+  ## [English](#English) 
  - [Look and feel](#Look-and-feel) 
  - [About](#About) 
  - [Packages](#Packages) 
@@ -10,7 +10,7 @@
  - [Keybinds](#Keybinds) 
  - [Other info](#Other-info) 
 
- # - [Русский](#Русский) 
+ ## [Русский](#Русский) 
  - [Внешний вид](#Внешний-вид) 
  - [Информация](#Информация) 
  - [Пакеты](#Пакеты) 
