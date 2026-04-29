@@ -1,3 +1,6 @@
+## Текст на русском:
+
+
 # __My i3 dotfiles__
 
 ## __Look and feel__
