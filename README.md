@@ -1,23 +1,23 @@
 # My i3 dotfiles
 
 ## links/содержание
-[English](#English)
-[Look and feel](#Look-and-feel)
-[About](#About)
-[Packages](#Packages)
-[Support](#Support)
-[Installation](#Installation)
-[Keybinds](#Keybinds)
-[Other info](#Other-info)
+[English](#English) \n
+[Look and feel](#Look-and-feel) \n
+[About](#About) \n
+[Packages](#Packages) \n
+[Support](#Support) \n
+[Installation](#Installation) \n
+[Keybinds](#Keybinds) \n
+[Other info](#Other-info) \n
 
-[Русский](#Русский)
-[Внешний вид](#Внешний-вид)
-[Информация](#Информация)
-[Пакеты](#Пакеты)
-[Поддержка](#Поддержка)
-[Установка](#Установка)
-[Горячие клавиши](#Горячие-клавиши)
-[Прочая информация](#Прочая-информация)
+[Русский](#Русский) \n
+[Внешний вид](#Внешний-вид) \n
+[Информация](#Информация) \n
+[Пакеты](#Пакеты) \n
+[Поддержка](#Поддержка) \n
+[Установка](#Установка) \n
+[Горячие клавиши](#Горячие-клавиши) \n
+[Прочая информация](#Прочая-информация) \n
 
 # Enligsh
 
