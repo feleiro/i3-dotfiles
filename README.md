@@ -4,7 +4,7 @@
 <img width="1280" height="720" alt="5442825979517671690" src="https://github.com/user-attachments/assets/85965e98-8512-40e2-a166-805210a45010" />
 <img width="1280" height="720" alt="5442825979517671704" src="https://github.com/user-attachments/assets/41c54fae-4de8-41ff-b0ad-5acd215a6e58" />
 <img width="1280" height="720" alt="5442825979517671706" src="https://github.com/user-attachments/assets/ad247c62-0139-41bc-bb7f-2e10df9ca9f6" />
-  wallpapers: aestethic-wallpapers on github
+  wallpapers: aesthetic-wallpapers on github
 
 
 
