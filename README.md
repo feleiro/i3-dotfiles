@@ -1,8 +1,8 @@
 # My i3 dotfiles
 
 ## links/содержание
-[English](english)
-[look and feek](look and feel)
+[English](#English)
+[look and feek](#Look and feel)
 []()
 []()
 []()
