@@ -38,5 +38,10 @@
 
   Clone this repository to your desired location and run `install.sh`. You will be asked a couple of questions during setup related to configs.
   It will not delete your previous configs and instead will backup them in the same path.
+
+## __Keybinds__
+  There is a simple cheatsheet i made: `win + /`. You can find all of the keybinds there.
+  Make sure to add ## comment before a keybind if you decide to add a new one since cheatsheet depends on it.
+  
 ## __other info__ 
-  You can do whatever you want with it. It not even that big and complicated.
+  You can do whatever you want with it. Its not even that big and complicated.
