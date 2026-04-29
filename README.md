@@ -2,13 +2,22 @@
 
 ## links/содержание
 [English](#English)
-[look and feek](#Look and feel)
-[]()
-[]()
-[]()
-[]()
-[]()
-[]()
+[Look and feel](#Look-and-feel)
+[About](#About)
+[Packages](#Packages)
+[Support](#Support)
+[Installation](#Installation)
+[Keybinds](#Keybinds)
+[Other info](#Other-info)
+
+[Русский](#Русский)
+[Внешний вид](#Внешний-вид)
+[Информация](#Информация)
+[Пакеты](#Пакеты)
+[Поддержка](#Поддержка)
+[Установка](#Установка)
+[Горячие клавиши](#Горячие-клавиши)
+[Прочая информация](#Прочая-информация)
 
 # Enligsh
 
