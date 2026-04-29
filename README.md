@@ -22,7 +22,7 @@
   | window manager | i3(really?) |
   | terminal | alacritty |
   | bar | polybar |
-  | runner | rofi |
+  | runer | rofi |
   | wallpaper tools | feh  & pywal |
   | file manager | dolphin |
   | screenshot tool | scrot |
