@@ -142,7 +142,7 @@ install_packages() {
 
             optecho "You are running slackware. Sbopkg will be used to install the packages, otherwise install them yourself."
 
-            if  sbopkg -i "$PKGS"; then
+            if  sudo sbopkg -i "$PKGS"; then
                 optecho "successfully installed packages"
                 return 0
             else
