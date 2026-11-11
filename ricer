@@ -1,0 +1,229 @@
+#!/bin/bash
+
+## options
+
+OPTIONS="hiuv"
+LONG_OPTIONS="help,install,uninstall,verbose"
+
+PARSED_OPTIONS=$(getopt -o "$OPTIONS" --long "$LONG_OPTIONS" -n "$0" -- "$@") \
+    || { echo "Invalid option. Try $0 -h." >&2; exit 1; }
+
+## defaults
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOCAL_CONFIG_DIR="$SCRIPT_DIR/config"
+CONFIG_FILES=("i3" "alacritty" "polybar" "rofi" "wal" "picom")
+CONFIG_DIR="$HOME/.config"
+BACKUP_SFX=".backup-$(date +%Y%m%d_%H%M%S)"
+
+VERBOSE=0
+
+## packages
+
+PACKAGES="i3 picom rofi pywal scrot xclip yad alacritty polybar feh nitrogen nemo"
+
+show_help() {
+    cat << EOF
+Ricer - configuration script for my dotfiles.
+Config files are stored within this folder so that it can be updated easily(git pull).
+Files will be symlinked into ".config".
+
+Usage: $0 [OPTIONS]
+Options:
+-h, --help          Show help message
+-i, --install       install dotfiles for the current user
+-u, --uninstall     uninstall provided dotfiles
+-v, --verbose       verbose output
+
+Example: ./ricer -i
+EOF
+    exit 0
+}
+
+## PROMPT USER FUNCTION
+
+prompt_user() {
+
+    read -p "$1" decision || return 1
+
+    case "$decision" in
+        y|Y|yes|Yes|YES|"") return 0 ;;
+        n|N|no|No|NO) return 1 ;;
+        *) prompt_user ;;
+    esac
+}
+
+## ECHO OPTIONAL TEXT
+
+optecho() { [ $VERBOSE -eq 1 ] && echo "$1"; return 0; }
+
+## SYMLINK AND BACKUP EXISTING FOLDERS/FILES
+
+symlink() {
+
+	local src="$1"
+	local dst="$2"
+
+    [ -e "$src" ] || { echo "ERROR: source missing: $src" >&2; return 1; }
+
+	if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+		optecho "WARNING: link already exists: $src -> $dst"
+		return 0
+	fi
+
+	if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+		optecho "creating backup for $dst"
+		mv "$dst" "$dst$BACKUP_SFX" || { echo "ERROR: backup failed for $dst" >&2; return 1; }
+	fi
+
+	mkdir -p "$(dirname "$dst")"
+	if ln -sf "$src" "$dst"; then
+	    optecho "symlink created: $src -> $dst"
+        return 0
+    else
+        echo "ERROR: Failed to create symlink. Aborting..."
+        return 1
+    fi
+}
+
+## GET DISTRO
+
+get_distro() {
+
+    local distro="$(grep '^ID_LIKE=' /etc/os-release | cut -d'=' -f2 | tr -d '"')"
+
+    if [ "$distro" = "" ]; then
+	    distro="$(grep '^ID=' /etc/os-release | cut -d'=' -f2 | tr -d '"')"
+	fi
+
+	echo "$distro"
+}
+
+## INSTALL PACKAGES FOR ARCH/VOID/SLACKWARE
+
+install_packages() {
+	local distro="$(get_distro)"
+
+	optecho " distro: $distro "
+
+	case "$distro" in
+		*arch*)
+			optecho "Checking whether yay exists..."
+
+			if ! pacman -Qi "yay" &> /dev/null; then
+				optecho "Yay is not installed. Installing..."
+				sudo pacman -S --needed git base-devel || return 1
+				git clone https://aur.archlinux.org/yay-bin.git || return 1
+				cd yay-bin || return 1
+				makepkg -si || { cd .. && return 1 }
+				cd ..
+				rm -rf yay-bin
+			    command -v yay >/dev/null || return 1
+            fi
+                optecho "Installing packages..."
+                yay -S --needed --noconfirm $PACKAGES || return 1
+			;;
+		*void*)
+            optecho "Installing packages..."
+            if sudo xbps-install -Sy $PACKAGES; then
+                return 0
+            else
+                echo "ERROR: packages failed to install, aborting..."
+                return 1
+            fi
+			;;
+        *slackware*)
+
+            local PKGS="imlib2 xcb-util-xrm yajl perl-JSON perl-AnyEvent rofi polybar feh nitrogen pywal yad xclip giblib scrot libconfig setconf uthash picom i3 cinnamon-desktop libgnomekbd xapp nemo"
+
+            optecho "You are running slackware. Sbopkg will be used to install the packages, otherwise install them yourself."
+
+            if  sbopkg -i "$PKGS"; then
+                optecho "successfully installed packages"
+                return 0
+            else
+                echo "ERROR: sbopkg is either missing or failed. You have to install packages by yourself."
+                echo "list of packages: $PKGS"
+                return 1
+            fi
+            ;;
+        *)
+            echo "WARNING: You probably have a distro i didnt add code to install packages for. Youre on your own :v"
+            echo "Heres the list of packages youll need, install them before continuing further:"
+            echo "$PACKAGES"
+            prompt_user "proceed further? (Y/n)" || return 1
+    esac
+}
+
+## FUCNTION TO CREATE NECESSARY SYMLINKS
+
+create_symlinks() {
+
+    for cfg in "${CONFIG_FILES[@]}"; do
+        symlink "$LOCAL_CONFIG_DIR/$cfg" "$CONFIG_DIR/$cfg" || return 1
+    done
+
+    return 0
+
+}
+
+## INSTALL DOTFILES
+install_dotfiles() {
+
+    if prompt_user "You are going to install the dotfiles. If there are any files related to used packages in .config they will be renamed to file.backup[date]. Proceed with installation?(Y/n)?"; then
+
+        install_packages && create_symlinks || return 1
+
+    else
+        return 1
+    fi
+
+}
+
+## UNINSTALL DOTFILES
+uninstall_dotfiles() {
+
+    prompt_user "Are you sure you want to uninstall dotfiles? This will remove symlinks inside '.config' folder? previous configuration files can be found inside if dotfiles were installed earlier (folder.backup[date]). (Y/n)?" || return 1
+
+    for cfg in "${CONFIG_FILES[@]}"; do
+
+        local dst="$CONFIG_DIR/$cfg"
+
+        if [ -L "$dst" ]; then
+
+            rm -- "$dst" || { echo "ERROR: failed to remove $dst" >&2; return 1; }
+            optecho "removed symlink: $dst"
+
+        elif [ -e "$dst" ]; then
+
+            echo "ERROR: $dst is not a symlink! Did you change or tweak it? In that case delete it yourself"
+
+            return 1
+
+    fi
+
+    done
+
+    return 0
+}
+
+## MAIN
+eval set -- "$PARSED_OPTIONS"
+ACTION=0
+while true; do
+    case "$1" in
+        -v|--verbose) VERBOSE=1; shift;;
+        -h|--help) ACTION=1; show_help ;;
+        -i|--install) ACTION=1; install_dotfiles || exit 1; shift ;;
+        -u|--uninstall) ACTION=1; uninstall_dotfiles || exit 1; shift ;;
+        --) shift; break ;;
+        *) echo "error"; exit 1 ;;
+    esac
+done
+
+[ $ACTION -eq 0 ] && show_help
+
+exit 0
+
+
+

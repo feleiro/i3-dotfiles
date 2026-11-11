@@ -1,6 +1,0 @@
-
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
-
-@import "~/.cache/wal/colors-rofi-dark.rasi"
-
-
