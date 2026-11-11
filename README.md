@@ -1,4 +1,3 @@
-```markdown
 # i3-dotfiles
 
 My i3 desktop configs, symlinked into `~/.config` so a `git pull` keeps them in sync.
@@ -40,4 +39,3 @@ cd i3-dotfiles
 ```
 
 Supports Arch, Void, and Slackware. Existing configs are backed up as `<name>.backup-<timestamp>`.
-```
