@@ -55,7 +55,7 @@ prompt_user() {
 
 ## ECHO OPTIONAL TEXT
 
-optecho() { [ $VERBOSE -eq 1 ] && echo "$1"; return 0; }
+optecho() { [ $VERBOSE -eq 1 ] && echo $1; return 0; }
 
 ## SYMLINK AND BACKUP EXISTING FOLDERS/FILES
 
@@ -111,18 +111,22 @@ install_packages() {
 			optecho "Checking whether yay exists..."
 
 			if ! pacman -Qi "yay" &> /dev/null; then
-				optecho "Yay is not installed. Installing..."
+
+                optecho "Yay is not installed. Installing..."
 				sudo pacman -S --needed git base-devel || return 1
 				git clone https://aur.archlinux.org/yay-bin.git || return 1
 				cd yay-bin || return 1
-				makepkg -si || { cd .. && return 1 }
+				makepkg -si || { cd ..; return 1; }
 				cd ..
 				rm -rf yay-bin
 			    command -v yay >/dev/null || return 1
+
             fi
-                optecho "Installing packages..."
-                yay -S --needed --noconfirm $PACKAGES || return 1
-			;;
+
+            optecho "Installing packages..."
+            yay -S --needed --noconfirm $PACKAGES || return 1
+
+            ;;
 		*void*)
             optecho "Installing packages..."
             if sudo xbps-install -Sy $PACKAGES; then
@@ -134,7 +138,7 @@ install_packages() {
 			;;
         *slackware*)
 
-            local PKGS="imlib2 xcb-util-xrm yajl perl-JSON perl-AnyEvent rofi polybar feh nitrogen pywal yad xclip giblib scrot libconfig setconf uthash picom i3 cinnamon-desktop libgnomekbd xapp nemo"
+            local PKGS="rust-opt imlib2 xcb-util-xrm yajl perl-JSON perl-AnyEvent rofi polybar feh nitrogen pywal yad xclip giblib scrot libconfig setconf uthash picom i3 cinnamon-desktop libgnomekbd xapp nemo alacritty"
 
             optecho "You are running slackware. Sbopkg will be used to install the packages, otherwise install them yourself."
 
