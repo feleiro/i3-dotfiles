@@ -7,7 +7,7 @@ dynamic_padding = true
 
 
 [terminal]
-shell = {program =  "/bin/fish", args = ["-c", "fastfetch && exec fish"] }
+# shell = {program =  "/bin/fish", args = ["-c", "fastfetch && exec fish"] }
 
 [font]
 size = 7.5
