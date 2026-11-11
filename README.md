@@ -45,7 +45,7 @@
   | bar | polybar |
   | runer | rofi |
   | wallpaper tools | feh  & pywal |
-  | file manager | dolphin |
+  | file manager | nemo |
   | screenshot tool | scrot |
   | clipboard | xclip |
   | composior | picom |
