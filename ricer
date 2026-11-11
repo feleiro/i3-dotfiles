@@ -20,7 +20,7 @@ VERBOSE=0
 
 ## packages
 
-PACKAGES="i3 picom rofi pywal scrot xclip yad alacritty polybar feh nitrogen nemo"
+PACKAGES="i3 picom rofi pywal scrot xclip yad alacritty polybar feh nemo fish dunst"
 
 show_help() {
     cat << EOF
@@ -138,7 +138,7 @@ install_packages() {
 			;;
         *slackware*)
 
-            local PKGS="rust-opt imlib2 xcb-util-xrm yajl perl-JSON perl-AnyEvent rofi polybar feh nitrogen pywal yad xclip giblib scrot libconfig setconf uthash picom i3 cinnamon-desktop libgnomekbd xapp nemo alacritty"
+            local PKGS="rust-opt imlib2 xcb-util-xrm yajl perl-JSON perl-AnyEvent rofi polybar fish feh pywal yad xclip giblib scrot libconfig setconf uthash picom i3 cinnamon-desktop libgnomekbd xapp nemo dunst alacritty"
 
             optecho "You are running slackware. Sbopkg will be used to install the packages, otherwise install them yourself."
 
@@ -177,7 +177,10 @@ install_dotfiles() {
     if prompt_user "You are going to install the dotfiles. If there are any files related to used packages in .config they will be renamed to file.backup[date]. Proceed with installation?(Y/n)?"; then
 
         install_packages && create_symlinks || return 1
+        echo "Succesfully installed dotfiles. Keep in mind that you need to run pywal to get colorscheme. Without it you will just see the black screen and apps wont work properly. (wal -i [filepath])"
 
+        prompt_user "Would you like to use image inside this folder (trojan_dog.jpeg) to generate your first color pallete?" && wal --backend colorz -nstqe -i trojan_dog.jpg
+        return 0
     else
         return 1
     fi

@@ -8,8 +8,8 @@ WALLPAPER=$(yad --file  \
 	--height=600 \
 	--add-preview \
 	--large-preview
-	
-	
+
+
 )
 
-wal -i $WALLPAPER
+wal --backend colorz -i $WALLPAPER
