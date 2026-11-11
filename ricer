@@ -20,7 +20,7 @@ VERBOSE=0
 
 ## packages
 
-PACKAGES="i3 picom rofi python-pywal16 scrot xclip yad alacritty polybar feh nemo fish dunst"
+PACKAGES="i3 picom rofi colorz python-pywal16 scrot xclip yad alacritty polybar feh nemo fish dunst"
 
 show_help() {
     cat << EOF
