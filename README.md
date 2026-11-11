@@ -4,12 +4,7 @@ My i3 desktop configs, symlinked into `~/.config` so a `git pull` keeps them in 
 
 ## Configs
 
-- `i3` — window manager
-- `alacritty` — terminal
-- `polybar` — status bar
-- `rofi` — app launcher
-- `picom` — compositor
-- `wal` — pywal colors
+Configuration files can be found within this folder.
 
 ## Packages
 
