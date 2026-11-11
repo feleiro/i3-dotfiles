@@ -1,36 +1,124 @@
-# i3-dotfiles
+Артём Бритая жопа, [11.11.2026 18:35]
+# My i3 dotfiles
 
-My i3 desktop configs, symlinked into `~/.config` so a `git pull` keeps them in sync.
+## links/содержание
+  ## English 
+ - Look and feel 
+ - About 
+ - Packages 
+ - Support 
+ - Installation 
+ - Keybinds 
+ - Other info 
 
-## Configs
+ ## Русский 
+ - Внешний вид 
+ - Информация 
+ - Пакеты 
+ - Поддержка 
+ - Установка 
+ - Горячие клавиши 
+ - Прочая информация 
 
-Configuration files can be found within `config` folder.
+# Enligsh
+
+## Look and feel
+<img width="1280" height="720" alt="5442825979517671690" src="https://github.com/user-attachments/assets/85965e98-8512-40e2-a166-805210a45010" />
+<img width="1280" height="720" alt="5442825979517671704" src="https://github.com/user-attachments/assets/41c54fae-4de8-41ff-b0ad-5acd215a6e58" />
+<img width="1280" height="720" alt="5442825979517671706" src="https://github.com/user-attachments/assets/ad247c62-0139-41bc-bb7f-2e10df9ca9f6" />
+  wallpapers: aesthetic-wallpapers on github
+
+
+
+## About
+
+  Its just a little bunch of dotfiles me and my brother use on a daily basis. It gets updated sometimes.
+  I decied to play around with symlinks so the config files are stored in the repos folder and are symlinked to the ~/.config folder.
+  It also changes colors based on wallapapers you provide.
 
 ## Packages
+  
+  Here is a list of packages that will be installed alongside dotfiles.
+  | tool  | package |
+  | :---: |  :---:  |
+  | window manager | i3(really?) |
+  | terminal | alacritty |
+  | bar | polybar |
+  | runer | rofi |
+  | wallpaper tools | feh  & pywal |
+  | file manager | dolphin |
+  | screenshot tool | scrot |
+  | clipboard | xclip |
+  | composior | picom |
+  | GTK+dialog display | yad(just for my custom scripts) |
 
-| Package | Description |
-|---------|-------------|
-| `i3` | Tiling window manager |
-| `picom` | Compositor (shadows, transparency) |
-| `rofi` | Application launcher |
-| `pywal` | Generates color schemes from wallpaper |
-| `scrot` | Screenshot utility |
-| `xclip` | Clipboard access from the command line |
-| `yad` | Dialog boxes for shell scripts |
-| `alacritty` | GPU-accelerated terminal |
-| `polybar` | Status bar |
-| `feh` | Wallpaper setter and image viewer |
-| `nitrogen` | Wallpaper browser/setter |
-| `nemo` | File manager |
+## Support
 
-## Install
+  *Void linux* and *arch*,~~but the "support" is just using right package manager depending on the distro.~~
 
-```bash
-git clone https://github.com/feleiro/i3-dotfiles.git
-cd i3-dotfiles
-./ricer -i    # install packages + symlink configs
-./ricer -u    # remove symlinks
-./ricer -h    # help
-```
+## Installation
 
-Supports Arch, Void, and Slackware. Existing configs are backed up as `<name>.backup-<timestamp>`.
+  Clone this repository to your desired location and run install.sh. You will be asked a couple of questions during setup related to configs.
+  It will not delete your previous configs and instead will backup them in the same path.
+
+## Keybinds
+  There is a simple cheatsheet i made: win + /. You can find all of the keybinds there.
+  Make sure to add ## comment before a keybind if you decide to add a new one since cheatsheet depends on it.
+  
+## other info
+  You can do whatever you want with it. Its not even that big and complicated.
+
+
+
+
+
+# Русский
+
+## Внешний вид
+<img width="1280" height="720" alt="5442825979517671690" src="https://github.com/user-attachments/assets/85965e98-8512-40e2-a166-805210a45010" />
+<img width="1280" height="720" alt="5442825979517671704" src="https://github.com/user-attachments/assets/41c54fae-4de8-41ff-b0ad-5acd215a6e58" />
+<img width="1280" height="720" alt="5442825979517671706" src="https://github.com/user-attachments/assets/ad247c62-0139-41bc-bb7f-2e10df9ca9f6" />
+  обои: aesthetic-wallpapers на GitHub
+
+
+
+## Информация
+
+  Это просто небольшой набор конфигурационных файлов, которым мы с братом пользуемся ежедневно. Время от времени он обновляется.
+  Я решил поиграться с симлинками, поэтому конфиги хранятся в папке репозитория и линкуются в ~/.config.
+  Цвета меняются в зависимости от установленных обоев.
+
+## Пакеты
+  
+  Вот список пакетов, которые будут установлены вместе с дотфайлами.
+  | Инструмент  | Пакет |
+  | :---: |  :---:  |
+  | оконный менеджер | i3 (кто бы сомневался?) |
+  | терминал | alacritty |
+  | панель | polybar |
+  | запускатор | rofi |
+  | инструменты для обоев | feh и pywal |
+  | файловый менеджер | dolphin |
+  | скриншоты | scrot |
+  | буфер обмена | xclip |
+  | композитор | picom |
+  | GTK-диалоги | yad (только для моих скриптов) |
+
+## Поддержка
+
+  *Void Linux* и *Arch*,~~но «поддержка» заключается лишь в использовании правильного пакетного менеджера в зависимости от дистрибутива.~~
+
+## Установка
+
+  Склонируйте этот репозиторий в любое удобное место и запустите install.sh. Вам будет задано несколько вопросов о конфигурациях в процессе установки.
+  Ваши предыдущие конфиги не будут удалены —
+
+Артём Бритая жопа, [11.11.2026 18:35]
+вместо этого они будут скопированы в ту же папку с расширением .backup.
+
+## Горячие клавиши
+  Я сделал простую шпаргалку: win + /. Там можно найти все сочетания клавиш.
+  Если решите добавить новое сочетание, обязательно добавьте перед ним комментарий ##, потому что шпаргалка формируется на основе этих комментариев.
+  
+## Прочая информация
+  Делайте с этими файлами что хотите. Они не такие уж большие и сложные.
