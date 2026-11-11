@@ -4,7 +4,7 @@ My i3 desktop configs, symlinked into `~/.config` so a `git pull` keeps them in 
 
 ## Configs
 
-Configuration files can be found within this folder.
+Configuration files can be found within `config` folder.
 
 ## Packages
 
