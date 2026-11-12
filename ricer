@@ -20,7 +20,7 @@ VERBOSE=0
 
 ## packages
 
-PACKAGES="i3 picom rofi colorz python-pywal16 scrot xclip yad alacritty polybar feh nemo fish dunst"
+PACKAGES="i3 picom rofi python-pywal16 scrot xclip yad alacritty polybar feh nemo fish dunst"
 
 show_help() {
     cat << EOF
@@ -179,7 +179,7 @@ install_dotfiles() {
         install_packages && create_symlinks || return 1
         echo "Succesfully installed dotfiles. Keep in mind that you need to run pywal to get colorscheme. Without it you will just see the black screen and apps wont work properly. (wal -i [filepath])"
 
-        prompt_user "Would you like to use image inside this folder (trojan_dog.jpeg) to generate your first color pallete? (Y/n)" && wal --backend colorz -nstqe -i trojan_dog.jpg
+        prompt_user "Would you like to use image inside this folder (trojan_dog.jpeg) to generate your first color pallete? (Y/n)" && wal -nstqe -i trojan_dog.jpg
         return 0
     else
         return 1

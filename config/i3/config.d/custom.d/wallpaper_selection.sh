@@ -12,4 +12,4 @@ WALLPAPER=$(yad --file  \
 
 )
 
-wal --backend colorz -i $WALLPAPER
+wal -i $WALLPAPER
