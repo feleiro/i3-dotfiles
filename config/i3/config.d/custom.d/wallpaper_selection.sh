@@ -12,4 +12,4 @@ WALLPAPER=$(yad --file  \
 
 )
 
-wal -i $WALLPAPER
+wal -i "$WALLPAPER"
